@@ -2,29 +2,22 @@ class Prime
 
   def self.nth(n)
     fail ArgumentError, "There is no zeroth prime number" if n == 0
-    last_prime, prime_counter = 0, 0
+    primes = []
     num = 1
-    while prime_counter <= n do
-      if factor_counter(num) <= 2
-        last_prime = num
-        prime_counter += 1
-        num += 1
-      else
-        num += 1
-      end
+    while primes.size <= n do
+      primes << num if is_prime?(num)
+      num += 1
     end
-    last_prime
+    primes.last
   end
 
-  def self.factor_counter(x)
-    factor_count = 0
-    (1..x).each do |num|
-      break if factor_count > 3
-      if x % num == 0
-        factor_count += 1
-      end
-    end
-    factor_count
+  def self.is_prime?(x)
+    number_of_factors = (1..x).select {|n| x % n == 0 }.size
+    number_of_factors < 3
   end
 
+end
+
+module BookKeeping
+    VERSION = 1
 end
